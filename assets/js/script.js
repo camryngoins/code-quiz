@@ -12,10 +12,3 @@ var startQuizButtonEl = document.querySelector("#start-btn");
 
 
 
-var getHighScore = function() {
-    // Check local storage for highscore 
-    var highScore = localStorage.getItem("highscore");
-    if (highScore === null) {
-        highScore = 0;
-    }
-}

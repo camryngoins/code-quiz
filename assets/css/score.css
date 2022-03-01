@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+#back-btn {
+    padding: 18px 25px;
+    border-radius: 5px;
+    background-color: lightblue;
+    border: none;
+    margin: 25px;
+}
+#back-btn:hover {
+    background-color: lightcoral;
+     transition: .5s ease;
+    cursor: pointer;
+}
+.page-title {
+    text-align: center;
+    font-size: 35px;
+    margin: 10%;
+}

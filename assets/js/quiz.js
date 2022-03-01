@@ -29,7 +29,7 @@ var checkAnswer = function(selectedAnswer) {
 
 var timer = function() {
     var timer = setInterval (function() {
-        timerEl.innerHTML = sec;
+        timerEl.innerHTML = "Time : " + sec;
         sec--;
         if (sec < 0) {
             clearInterval(timer);
