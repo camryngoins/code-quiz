@@ -1,5 +1,4 @@
-var highScore = 0;
-var newScore = 0;
+var highScoresEl = document.querySelector("#highscores")
 
 var getHighScore = function() {
     // Check local storage for highscore 
@@ -7,5 +6,5 @@ var getHighScore = function() {
     if (highScore === null) {
         highScore = 0;
     }
-    
+
 }

@@ -3,20 +3,21 @@ var buttonArray = document.querySelectorAll(".btn");
 var answerEl = document.querySelector(".answer");
 var timerEl = document.querySelector(".timer");
 var sec =75;
+var index = 0;
 
 // function to begin the quiz 
 var startGame = function () {
-    timer();
-    questionTitleEl.innerText = questions[0].question;
+  
+    questionTitleEl.innerText = questions[index].question;
 
     //change the inner text of each button to each choice
     for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].innerText = questions[0].choices[i]
+        buttonArray[i].innerText = questions[index].choices[i]
         buttonArray[i].addEventListener("click", (e) => checkAnswer(e.target.innerText))
     }
 }
 var checkAnswer = function(selectedAnswer) {
-    if (selectedAnswer === questions[0].answer) {
+    if (selectedAnswer === questions[index].answer) {
         answerEl.innerText = "Correct!";
         answerEl.style.visibility = "visible"
     }
@@ -24,6 +25,13 @@ var checkAnswer = function(selectedAnswer) {
         answerEl.innerText = "Wrong!";
         answerEl.style.visibility = "visible";
         sec = sec - 15;
+    }
+
+    if(sec > 0){
+        index++;
+        setTimeout(function() {
+            answerEl.style.visibility = "hidden"
+            startGame()}, 750) 
     }
 }
 
@@ -76,4 +84,6 @@ var questions = [
         answer: '<script>'
     }
 ]
+
+timer();
 startGame();
