@@ -1,10 +1,5 @@
-var highScoresEl = document.querySelector("#highscores")
+var highScores = document.querySelector("#highscores")
 
-var getHighScore = function() {
-    // Check local storage for highscore 
-    var highScore = localStorage.getItem("highscore");
-    if (highScore === null) {
-        highScore = 0;
-    }
+var currentScores =localStorage.getItem("currentScores");
+currentScores = JSON.parse(currentScores)
 
-}

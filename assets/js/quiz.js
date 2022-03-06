@@ -1,9 +1,62 @@
+// An array of all of the questions that will be asked in the code quiz
+var questions = [
+    {
+        question: 'Which is not a primitive type in javascript?',
+        choices: ["A: Boolean",
+            "B: String",
+            "C: Array",
+            "D: Number"],
+        answer: "C: Array"
+    },
+    {
+        question: 'Which of the elements can be used to create a numbered list?',
+
+        choices: ["A: <ul>",
+        "B: <li>",
+        "C: <br>",
+        "D: <ol>"],
+        answer: "D: <ol>"
+    },
+    {
+        question: 'How would you add a comment in CSS?',
+
+       choices : [ "A: /* This is a comment! */",
+        "B: <-- This is a comment! -->",
+        "C: // This is a comment //",
+        "D: None of the above."],
+        answer: "A: /* This is a comment! */"
+    },
+    {
+        question: 'Which HTML tag is used to define a javascrip file?',
+
+        choices : ["A: <style>",
+        "B: <script>",
+        "C: <js>",
+        "D: <css>"],
+
+        answer: "B: <script>"
+    }
+]
+// list of global variables 
 var questionTitleEl = document.querySelector("h1");
 var buttonArray = document.querySelectorAll(".btn");
 var answerEl = document.querySelector(".answer");
 var timerEl = document.querySelector(".timer");
 var sec =75;
 var index = 0;
+var score = 0;
+
+var timer = function() {
+    var timer = setInterval (function() {
+        timerEl.innerHTML = "Time : " + sec;
+        sec--;
+        if (sec === 0) {
+            clearInterval(timer);
+            timerEl.textContent = "Time is up!";
+        }
+    }, 1000);
+
+};
 
 // function to begin the quiz 
 var startGame = function () {
@@ -27,63 +80,13 @@ var checkAnswer = function(selectedAnswer) {
         sec = sec - 15;
     }
 
-    if(sec > 0){
+    if(sec > 0) {
         index++;
         setTimeout(function() {
             answerEl.style.visibility = "hidden"
             startGame()}, 750) 
     }
-}
-
-var timer = function() {
-    var timer = setInterval (function() {
-        timerEl.innerHTML = "Time : " + sec;
-        sec--;
-        if (sec < 0) {
-            clearInterval(timer);
-        }
-    }, 1000);
-}
-
-// An array of all of the questions that will be asked in the code quiz
-var questions = [
-    {
-        question: 'Which is not a primitive type in javascript?',
-        choices: ["A: Boolean",
-            "B: String",
-            "C: Array",
-            "D: Number"],
-        answer: 'C: Array'
-    },
-    {
-        question: 'Which of the elements can be used to create a numbered list?',
-
-        choices: ["A: <ul>",
-        "B: <li>",
-        "C: <br>",
-        "D: <ol>"],
-        answer: "D: <ol>"
-    },
-    {
-        question: 'How would you add a comment in CSS?',
-
-       choices : [ "A: /* This is a comment! */",
-        "B: <-- This is a comment! -->",
-        "C: // This is a comment //",
-        "D: 'None of the above."],
-        answer: "A: /* This is a comment! */"
-    },
-    {
-        question: 'Which HTML tag is used to define a javascrip file?',
-
-        choices : ["A: <style>",
-        "B: <script>",
-        "C: <js>",
-        "D: <css>'"],
-
-        answer: '<script>'
-    }
-]
+};
 
 timer();
 startGame();
