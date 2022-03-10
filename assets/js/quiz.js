@@ -27,7 +27,7 @@ var questions = [
         answer: "A: /* This is a comment! */"
     },
     {
-        question: 'Which HTML tag is used to define a javascrip file?',
+        question: 'Which HTML tag is used to define a javascript file?',
 
         choices : ["A: <style>",
         "B: <script>",
@@ -37,19 +37,29 @@ var questions = [
         answer: "B: <script>"
     }
 ]
+
 // list of global variables 
 var questionTitleEl = document.querySelector("h1");
 var buttonArray = document.querySelectorAll(".btn");
 var answerEl = document.querySelector(".answer");
 var timerEl = document.querySelector(".timer");
+var containerEl = document.querySelector(".container");
+var showScoreEl = document.querySelector(".showScore");
+var inputName = document.querySelector(".inputName");
+var submitScore = document.querySelector(".submitScore");
 var sec =75;
 var index = 0;
 var score = 0;
+var isGameOver = false;
 
 var timer = function() {
     var timer = setInterval (function() {
-        timerEl.innerHTML = "Time : " + sec;
+        timerEl.textContent = "Time : " + sec;
         sec--;
+        if (isGameOver) {
+            clearInterval(timer);
+            timerEl.textContent = "Game over!";
+        }
         if (sec === 0) {
             clearInterval(timer);
             timerEl.textContent = "Time is up!";
@@ -60,32 +70,58 @@ var timer = function() {
 
 // function to begin the quiz 
 var startGame = function () {
-  
-    questionTitleEl.innerText = questions[index].question;
 
     //change the inner text of each button to each choice
     for (var i = 0; i < buttonArray.length; i++) {
-        buttonArray[i].innerText = questions[index].choices[i]
         buttonArray[i].addEventListener("click", (e) => checkAnswer(e.target.innerText))
-    }
+    } 
+    nextQuestion()
 }
 var checkAnswer = function(selectedAnswer) {
     if (selectedAnswer === questions[index].answer) {
         answerEl.innerText = "Correct!";
         answerEl.style.visibility = "visible"
+        score++
     }
     else {
         answerEl.innerText = "Wrong!";
         answerEl.style.visibility = "visible";
         sec = sec - 15;
     }
+    if (index === questions.length - 1) {
+        isGameOver = true;
+        containerEl.style.visibility = "hidden";
+        showScoreEl.innerText = "Score " + score;
+        sec = 0
+    }
 
     if(sec > 0) {
         index++;
         setTimeout(function() {
             answerEl.style.visibility = "hidden"
-            startGame()}, 750) 
+            nextQuestion()}, 750) 
     }
+};
+
+var nextQuestion = function() {
+    questionTitleEl.innerText = questions[index].question;
+
+    //change the inner text of each button to each choice
+    for (var i = 0; i < buttonArray.length; i++) {
+        buttonArray[i].innerText = questions[index].choices[i];
+    }
+};
+var submitScore = function() {
+    var name = inputName.value;
+    var currentScores =localStorage.getItem("currentScores");
+
+        if (!currentScores) {
+            currentScores = [];
+        }
+        currentScores.push({
+            name, score
+        })
+        localStorage.setItem("currentScores", currentScores);
 };
 
 timer();
